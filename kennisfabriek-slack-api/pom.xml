@@ -1,43 +1,160 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>wiki.kennsfabriek.slack.api</groupId>
-  <artifactId>kennisfabriek-slack.api</artifactId>
+  <artifactId>kennisfabriek-slack-api</artifactId>
   <version>1.0.0</version>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.threeten</groupId>
-  		<artifactId>threetenbp</artifactId>
-  		<version>1.3.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.glassfish.tyrus.bundles</groupId>
-  		<artifactId>tyrus-standalone-client</artifactId>
-  		<version>1.8.3</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.slf4j</groupId>
-  		<artifactId>slf4j-api</artifactId>
-  		<version>1.7.9</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.google.guava</groupId>
-  		<artifactId>guava</artifactId>
-  		<version>15.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.googlecode.json-simple</groupId>
-  		<artifactId>json-simple</artifactId>
-  		<version>1.1.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.httpcomponents</groupId>
-  		<artifactId>httpcore</artifactId>
-  		<version>4.3.3</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.httpcomponents</groupId>
-  		<artifactId>httpclient</artifactId>
-  		<version>4.3.6</version>
-  	</dependency>
-  </dependencies>
+  <licenses>
+    <license>
+      <name>Kennisfabriek license 1.0</name>
+      <url>
+	    http://www.kennisfabriek.wiki/
+	  </url>
+	  <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <organization>
+  	<name>Kennisfabriek</name>
+  	<url>http://www.kennisfabriek.wiki</url>
+  </organization>
+  <name>De Kennisfabriek Slack API</name>
+  <description>De Slack API die de calls afhandeld naar Slack.</description>
+  <url>http://www.kennisfabriek.wiki</url>
+
+	  <dependencies>
+	  	<dependency>
+	  		<groupId>org.threeten</groupId>
+	  		<artifactId>threetenbp</artifactId>
+	  		<version>1.3.1</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.glassfish.tyrus.bundles</groupId>
+	  		<artifactId>tyrus-standalone-client</artifactId>
+	  		<version>1.8.3</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.slf4j</groupId>
+	  		<artifactId>slf4j-api</artifactId>
+	  		<version>1.7.9</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>com.google.guava</groupId>
+	  		<artifactId>guava</artifactId>
+	  		<version>15.0</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>com.googlecode.json-simple</groupId>
+	  		<artifactId>json-simple</artifactId>
+	  		<version>1.1.1</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.apache.httpcomponents</groupId>
+	  		<artifactId>httpcore</artifactId>
+	  		<version>4.3.3</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.apache.httpcomponents</groupId>
+	  		<artifactId>httpclient</artifactId>
+	  		<version>4.3.6</version>
+	  	</dependency>
+	  </dependencies>
+  <build>
+<!--   	<defaultGoal>install</defaultGoal>
+ -->  	<pluginManagement>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-gpg-plugin</artifactId>
+	      <version>1.5</version>
+	      <executions>
+	        <execution>
+	          <id>sign-artifacts</id>
+	          <phase>verify</phase>
+	          <goals>
+	            <goal>sign</goal>
+	          </goals>
+	        </execution>
+	      </executions>
+	    </plugin>
+ 	    <plugin>
+		  <artifactId>maven-install-plugin</artifactId>
+		  <version>2.3.1</version>
+		  <configuration>
+		    <createChecksum>true</createChecksum>
+		  </configuration>
+		</plugin>
+ 		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-javadoc-plugin</artifactId>
+		  <version>2.9.1</version>
+		  <executions>
+		    <execution>
+		      <id>attach-javadocs</id>
+		      <goals>
+		        <goal>jar</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-source-plugin</artifactId>
+		  <version>2.4</version>
+		  <executions>
+		    <execution>
+		      <id>attach-sources</id>
+		      <goals>
+		        <goal>jar</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin> 
+<!-- 		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-checkstyle-plugin</artifactId> -->
+		  <!--  Lock down plugin version for build reproducibility  -->
+<!--		  <version>2.13</version>
+		  <configuration>
+			<consoleOutput>true</consoleOutput> -->
+			<!--
+			 We use this to disable checkstyle when the clover profile is executed since there's a
+			                 conflict between checkstyle and clover. Namely the clovered code doesn't pass our
+			                 checkstyle rules 
+			-->
+<!--			<skip>${xwiki.checkstyle.skip}</skip>
+		  </configuration>
+		</plugin> -->
+		<!--  Used to check/update license headers  -->
+<!--  		<plugin>
+		  <groupId>com.mycila</groupId>
+		  <artifactId>license-maven-plugin</artifactId> -->
+		  <!--  Lock down plugin version for build reproducibility  -->
+<!--		  <version>2.6</version>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-remote-resources-plugin</artifactId> -->
+		  <!--  Lock down plugin version for build reproducibility  -->
+<!--	      <version>1.4</version>
+		</plugin>
+  		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-resources-plugin</artifactId> -->
+		  <!--  Lock down plugin version for build reproducibility  -->
+<!--		  <version>2.7</version> 
+		</plugin> --> 
+	  </plugins> 
+	</pluginManagement>
+  </build> 
+  <distributionManagement>
+    <repository>
+      <id>kennisfabriek-release</id>
+      <url>http://nexus-kennisfabriek.rhcloud.com/content/repositories/kennisfabriek-release</url>
+    </repository>
+  </distributionManagement>
+  <scm>
+  	<url>https://github.com/kennisfabriek/wiki.kennisfabriek.slack.api.git</url>
+  	<developerConnection>phuisman</developerConnection>
+  	<connection>scm:git:git://github.com/kennisfabriek/wiki.kennisfabriek.slack.api.git</connection>
+  	<tag>kennisfabriek-1.0.1</tag>
+  </scm>
 </project>
