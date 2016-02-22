@@ -1,0 +1,6 @@
+wiki.kennisfabriek.slack.simpleslackapi.SlackAttachment;
+wiki.kennisfabriek.slack.simpleslackapi.SlackChannel;
+wiki.kennisfabriek.slack.simpleslackapi.SlackField;
+wiki.kennisfabriek.slack.simpleslackapi.SlackSession;
+wiki.kennisfabriek.slack.simpleslackapi.impl.SlackChatConfiguration;
+wiki.kennisfabriek.slack.simpleslackapi.impl.SlackSessionFactory;
